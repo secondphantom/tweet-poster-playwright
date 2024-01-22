@@ -30,24 +30,49 @@ class BrowserPost {
         this.uploadFile = (filePath) => __awaiter(this, void 0, void 0, function* () {
             if (!filePath)
                 return;
+            const setFile = this.getSetFile();
             let uploadFile = false;
             if (filePath.video) {
-                yield this.setFile(filePath.video);
+                yield setFile(filePath.video);
                 yield this.waitUploadComplete();
                 uploadFile = true;
             }
             if (uploadFile)
                 return;
-            if (!filePath.image)
+            if (!filePath.images)
                 return;
-            yield this.setFile(filePath.image);
+            if (filePath.images.length === 0)
+                return;
+            for (const imagePath of filePath.images) {
+                yield setFile(imagePath);
+                yield this.delay(1000);
+            }
         });
-        this.setFile = (filePath) => __awaiter(this, void 0, void 0, function* () {
+        this.getSetFile = () => {
+            let isFirstUpload = true;
+            return (filePath) => {
+                if (isFirstUpload) {
+                    isFirstUpload = false;
+                    return this.setFileMedia(filePath);
+                }
+                return this.setFilePhotos(filePath);
+            };
+        };
+        this.setFileMedia = (filePath) => __awaiter(this, void 0, void 0, function* () {
             const fileChooserPromise = this.page.waitForEvent("filechooser", {
                 timeout: 15000,
             });
             yield this.delay(500);
             yield this.page.click('[aria-label="Add photos or video"]');
+            const fileChooser = yield fileChooserPromise;
+            yield fileChooser.setFiles(filePath);
+        });
+        this.setFilePhotos = (filePath) => __awaiter(this, void 0, void 0, function* () {
+            const fileChooserPromise = this.page.waitForEvent("filechooser", {
+                timeout: 15000,
+            });
+            yield this.delay(500);
+            yield this.page.click('[aria-label="Add photos"]');
             const fileChooser = yield fileChooserPromise;
             yield fileChooser.setFiles(filePath);
         });

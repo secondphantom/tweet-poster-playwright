@@ -1,12 +1,12 @@
 import { BrowserInstance } from "../infrastructure/browser.instance";
-export type UploadDto = {
+export type PostDto = {
     meta: {
         title: string;
         tags?: string[];
     };
     filePath?: {
         video?: string;
-        image?: string;
+        images?: string[];
     };
     config?: {
         visibility?: "public" | "schedule";
@@ -17,5 +17,5 @@ export declare class PostService {
     private browserInstance;
     private browserPost;
     constructor(browserInstance: BrowserInstance);
-    post: (dto: UploadDto) => Promise<void>;
+    post: (dto: PostDto) => Promise<void>;
 }

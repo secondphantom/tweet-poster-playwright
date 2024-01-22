@@ -14,11 +14,12 @@ const zod_1 = require("zod");
 class PostController {
     constructor(videoService) {
         this.videoService = videoService;
-        this.uploadVideoDtoSchema = zod_1.z.object({
+        this.uploadVideoDtoSchema = zod_1.z
+            .object({
             filePath: zod_1.z
                 .object({
                 video: zod_1.z.string().optional(),
-                Image: zod_1.z.string().optional(),
+                images: zod_1.z.array(zod_1.z.string()).optional(),
             })
                 .optional(),
             meta: zod_1.z.object({
@@ -33,8 +34,9 @@ class PostController {
                 scheduleDate: zod_1.z.date().optional(),
             })
                 .optional(),
-        });
-        this.upload = (dto) => __awaiter(this, void 0, void 0, function* () {
+        })
+            .strict();
+        this.post = (dto) => __awaiter(this, void 0, void 0, function* () {
             const validDto = this.uploadVideoDtoSchema.parse(dto);
             yield this.videoService.post(validDto);
         });
