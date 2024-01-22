@@ -25,9 +25,7 @@ export class BrowserPost {
     await this.uploadFile(filePath);
     await this.delay(2000);
 
-    await this.delay(200000);
-
-    // await this.post();
+    await this.post();
   };
 
   private uploadFile = async (filePath: UploadDto["filePath"]) => {

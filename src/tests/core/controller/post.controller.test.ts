@@ -20,6 +20,7 @@ describe("Video Controller", () => {
         params: {
           filePath: {
             video: "filePath",
+            images: ["filePath", "filePath"],
           },
           meta: {
             title: "title",
@@ -37,6 +38,7 @@ describe("Video Controller", () => {
         params: {
           filePath: {
             video: "filePath",
+            images: ["filePath", "filePath"],
           },
           meta: {
             title: "title",
@@ -53,6 +55,7 @@ describe("Video Controller", () => {
         params: {
           filePath: {
             video: "filePath",
+            images: ["filePath", "filePath"],
           },
           meta: {
             title: "title",
@@ -96,6 +99,23 @@ describe("Video Controller", () => {
           },
         },
         message: "meta is required",
+        isError: true,
+      },
+      {
+        params: {
+          filePath: {
+            images: "filePath",
+          },
+          meta: {
+            title: "title",
+            tags: ["tag1", "tag2"],
+          },
+          config: {
+            visibility: "public",
+            scheduleDate: new Date(),
+          },
+        },
+        message: "invalid images input",
         isError: true,
       },
     ])(`$message`, ({ params, isError }) => {
