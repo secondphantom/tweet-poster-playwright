@@ -12,6 +12,7 @@ npm i https://github.com/secondphantom/tweet-poster-playwright
 - [x] tweet
   - [x] upload video
   - [x] multiple images
+  - [x] schedule tweet
 
 ## Usage
 
