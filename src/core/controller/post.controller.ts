@@ -1,4 +1,4 @@
-import { UploadDto, PostService } from "../service/post.service";
+import { PostDto, PostService } from "../service/post.service";
 import { z } from "zod";
 
 export class PostController {
@@ -27,7 +27,7 @@ export class PostController {
     })
     .strict();
 
-  upload = async (dto: UploadDto) => {
+  post = async (dto: PostDto) => {
     const validDto = this.uploadVideoDtoSchema.parse(dto);
     await this.videoService.post(validDto);
   };

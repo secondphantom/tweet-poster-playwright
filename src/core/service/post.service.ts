@@ -1,7 +1,7 @@
 import { BrowserInstance } from "../infrastructure/browser.instance";
 import { BrowserPost } from "../infrastructure/browser.post";
 
-export type UploadDto = {
+export type PostDto = {
   meta: {
     title: string;
     tags?: string[];
@@ -22,7 +22,7 @@ export class PostService {
     this.browserPost = new BrowserPost(this.browserInstance);
   }
 
-  post = async (dto: UploadDto) => {
+  post = async (dto: PostDto) => {
     await this.browserPost.run(dto);
   };
 }

@@ -1,5 +1,5 @@
 import { BrowserInstance } from "../../../core/infrastructure/browser.instance";
-import { UploadDto, PostService } from "../../../core/service/post.service";
+import { PostDto, PostService } from "../../../core/service/post.service";
 import { LoginService } from "../../../core/service/login.service";
 import dotenv from "dotenv";
 dotenv.config();
@@ -24,7 +24,7 @@ describe("Post Service", () => {
   });
 
   test.skip("Upload Video", async () => {
-    const dto: UploadDto = {
+    const dto: PostDto = {
       meta: {
         title: "test",
         tags: ["리그오브레전드", "leagueoflegends"],
@@ -42,7 +42,7 @@ describe("Post Service", () => {
   }, 180000);
 
   test.only("Upload Images", async () => {
-    const dto: UploadDto = {
+    const dto: PostDto = {
       meta: {
         title: "test",
         tags: ["리그오브레전드", "leagueoflegends"],

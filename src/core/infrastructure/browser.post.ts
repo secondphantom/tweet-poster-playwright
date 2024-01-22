@@ -1,6 +1,6 @@
 import { FrameLocator, Page } from "playwright";
 import { BrowserInstance } from "./browser.instance";
-import { UploadDto } from "../service/post.service";
+import { PostDto } from "../service/post.service";
 
 export class BrowserPost {
   private page: Page;
@@ -8,7 +8,7 @@ export class BrowserPost {
     this.page = this.browserInstance.getPage();
   }
 
-  run = async (dto: UploadDto) => {
+  run = async (dto: PostDto) => {
     if (!this.page) {
       this.page = this.browserInstance.getPage();
     }
@@ -28,7 +28,7 @@ export class BrowserPost {
     await this.post();
   };
 
-  private uploadFile = async (filePath: UploadDto["filePath"]) => {
+  private uploadFile = async (filePath: PostDto["filePath"]) => {
     if (!filePath) return;
     const setFile = this.getSetFile();
 
@@ -83,7 +83,7 @@ export class BrowserPost {
     await fileChooser.setFiles(filePath);
   };
 
-  private setMeta = async ({ title, tags }: UploadDto["meta"]) => {
+  private setMeta = async ({ title, tags }: PostDto["meta"]) => {
     await this.page.click(".DraftEditor-root");
     await this.page.keyboard.type(title);
     if (!tags) return;
@@ -97,7 +97,7 @@ export class BrowserPost {
     await this.page.keyboard.press("Escape");
   };
 
-  private setConfig = async (config?: UploadDto["config"]) => {
+  private setConfig = async (config?: PostDto["config"]) => {
     if (!config) return;
 
     const { visibility, scheduleDate } = config;
