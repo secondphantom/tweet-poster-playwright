@@ -1,0 +1,7 @@
+node_modules
+exclude
+scripts
+.env
+.vscode
+.npmtoken
+*.mp4

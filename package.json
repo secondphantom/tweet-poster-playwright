@@ -1,0 +1,25 @@
+{
+  "name": "tweeter-video-uploader-playwright",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "watch": "tsc -w",
+    "test": "cross-env NODE_ENV=test DOTENV_CONFIG_PATH=./.env jest --runInBand --silent=false",
+    "build": "rm -rf ./dist & tsc"
+  },
+  "keywords": [],
+  "author": "Second Phantom <second2phantom@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.41.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.11.5",
+    "dotenv": "^16.3.2",
+    "ts-jest": "^29.1.1"
+  }
+}
