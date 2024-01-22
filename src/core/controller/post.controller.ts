@@ -20,7 +20,7 @@ export class PostController {
         visibility: z
           .union([z.literal("public"), z.literal("schedule")])
           .optional(),
-        scheduleDate: z.date(),
+        scheduleDate: z.date().optional(),
       })
       .optional(),
   });
