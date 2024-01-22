@@ -5,7 +5,7 @@ export declare class TweetPoster {
     tweet: PostController;
     constructor({ authFilePath, launchOptions, }: {
         authFilePath: string;
-        launchOptions: LaunchOptions;
+        launchOptions?: LaunchOptions;
     });
     login: () => Promise<{
         isLogin: boolean;
