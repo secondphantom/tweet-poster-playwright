@@ -17,7 +17,7 @@ const playwright_1 = require("playwright");
 const fs_1 = __importDefault(require("fs"));
 class BrowserInstance {
     constructor({ authFilePath, launchOptions, }) {
-        this.HOME_URL = "https://twitter.com/home";
+        this.UPLOAD_URL = "https://twitter.com/compose/tweet";
         this.LOGIN_URL = "https://twitter.com";
         this.launch = () => __awaiter(this, void 0, void 0, function* () {
             yield this.closeBrowser();
@@ -30,13 +30,13 @@ class BrowserInstance {
                 throw new Error(error.message);
             }
             this.page = yield this.openPage();
-            yield this.goto(this.HOME_URL);
+            yield this.goto(this.UPLOAD_URL);
         });
         this.openBrowser = (initConfig) => __awaiter(this, void 0, void 0, function* () {
             const defaultInitConfig = {
                 headless: true,
                 setAuth: true,
-                browserType: "chromium",
+                browserType: "firefox",
                 locale: "en",
             };
             const { headless, setAuth, browserType, locale } = Object.assign(Object.assign({}, defaultInitConfig), initConfig);
@@ -83,7 +83,7 @@ class BrowserInstance {
         });
         this.checkValidLogin = () => __awaiter(this, void 0, void 0, function* () {
             const page = yield this.openPage();
-            const url = this.HOME_URL;
+            const url = this.UPLOAD_URL;
             yield this.internalGoto(url, page);
             const pageUrl = page.url();
             if (pageUrl !== url) {
@@ -128,7 +128,7 @@ class BrowserInstance {
         });
         this.getPage = () => this.page;
         this.goUploadPage = () => __awaiter(this, void 0, void 0, function* () {
-            yield this.page.goto(this.HOME_URL, { waitUntil: "networkidle" });
+            yield this.page.goto(this.UPLOAD_URL, { waitUntil: "commit" });
         });
         this.authFilePath = authFilePath;
         this.launchOptions = launchOptions ? launchOptions : {};

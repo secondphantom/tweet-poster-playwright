@@ -18,7 +18,7 @@ export class BrowserInstance {
   private launchOptions: LaunchOptions;
   private browserContext: BrowserContext | undefined;
   private page: Page | undefined;
-  private HOME_URL = "https://twitter.com/home";
+  private UPLOAD_URL = "https://twitter.com/compose/tweet";
   private LOGIN_URL = "https://twitter.com";
 
   constructor({
@@ -45,7 +45,7 @@ export class BrowserInstance {
     }
 
     this.page = await this.openPage();
-    await this.goto(this.HOME_URL);
+    await this.goto(this.UPLOAD_URL);
   };
 
   openBrowser = async (initConfig?: {
@@ -57,7 +57,7 @@ export class BrowserInstance {
     const defaultInitConfig = {
       headless: true,
       setAuth: true,
-      browserType: "chromium",
+      browserType: "firefox",
       locale: "en",
     };
     const { headless, setAuth, browserType, locale } = {
@@ -115,7 +115,7 @@ export class BrowserInstance {
 
   checkValidLogin = async () => {
     const page = await this.openPage();
-    const url = this.HOME_URL;
+    const url = this.UPLOAD_URL;
     await this.internalGoto(url, page);
 
     const pageUrl = page.url();
@@ -168,6 +168,6 @@ export class BrowserInstance {
   getPage = () => this.page!;
 
   goUploadPage = async () => {
-    await this.page!.goto(this.HOME_URL, { waitUntil: "networkidle" });
+    await this.page!.goto(this.UPLOAD_URL, { waitUntil: "commit" });
   };
 }

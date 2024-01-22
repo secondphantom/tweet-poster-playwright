@@ -8,7 +8,7 @@ export declare class BrowserInstance {
     private launchOptions;
     private browserContext;
     private page;
-    private HOME_URL;
+    private UPLOAD_URL;
     private LOGIN_URL;
     constructor({ authFilePath, launchOptions, }: BrowserInstanceConstructorInput);
     launch: () => Promise<void>;
