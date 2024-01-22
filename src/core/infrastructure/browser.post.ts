@@ -25,30 +25,61 @@ export class BrowserPost {
     await this.uploadFile(filePath);
     await this.delay(2000);
 
-    await this.post();
+    await this.delay(200000);
+
+    // await this.post();
   };
 
   private uploadFile = async (filePath: UploadDto["filePath"]) => {
     if (!filePath) return;
+    const setFile = this.getSetFile();
 
     let uploadFile = false;
     if (filePath.video) {
-      await this.setFile(filePath.video);
+      await setFile(filePath.video);
       await this.waitUploadComplete();
       uploadFile = true;
     }
     if (uploadFile) return;
-    if (!filePath.image) return;
-    await this.setFile(filePath.image);
+    if (!filePath.images) return;
+    if (filePath.images.length === 0) return;
+
+    for (const imagePath of filePath.images) {
+      await setFile(imagePath);
+      await this.delay(1000);
+    }
   };
 
-  private setFile = async (filePath: string) => {
+  private getSetFile = () => {
+    let isFirstUpload = true;
+    return (filePath: string) => {
+      if (isFirstUpload) {
+        isFirstUpload = false;
+        return this.setFileMedia(filePath);
+      }
+      return this.setFilePhotos(filePath);
+    };
+  };
+
+  private setFileMedia = async (filePath: string) => {
     const fileChooserPromise = this.page.waitForEvent("filechooser", {
       timeout: 15000,
     });
 
     await this.delay(500);
     await this.page.click('[aria-label="Add photos or video"]');
+
+    const fileChooser = await fileChooserPromise;
+    await fileChooser.setFiles(filePath);
+  };
+
+  private setFilePhotos = async (filePath: string) => {
+    const fileChooserPromise = this.page.waitForEvent("filechooser", {
+      timeout: 15000,
+    });
+
+    await this.delay(500);
+    await this.page.click('[aria-label="Add photos"]');
 
     const fileChooser = await fileChooserPromise;
     await fileChooser.setFiles(filePath);

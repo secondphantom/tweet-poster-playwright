@@ -8,7 +8,7 @@ export type UploadDto = {
   };
   filePath?: {
     video?: string;
-    image?: string;
+    images?: string[];
   };
   config?: {
     visibility?: "public" | "schedule";

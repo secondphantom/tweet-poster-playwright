@@ -12,7 +12,7 @@ describe("Post Service", () => {
   beforeAll(async () => {
     browserInstance = new BrowserInstance({
       authFilePath: process.env.AUTH_FILE_PATH!,
-      launchOptions: { headless: true },
+      launchOptions: { headless: false },
     });
     loginService = new LoginService(browserInstance);
     await loginService.login();
@@ -23,7 +23,7 @@ describe("Post Service", () => {
     await browserInstance.closeBrowser();
   });
 
-  test("Upload Video", async () => {
+  test.skip("Upload Video", async () => {
     const dto: UploadDto = {
       meta: {
         title: "test",
@@ -41,14 +41,14 @@ describe("Post Service", () => {
     await postService.post(dto);
   }, 180000);
 
-  test.skip("Upload Images", async () => {
+  test.only("Upload Images", async () => {
     const dto: UploadDto = {
       meta: {
         title: "test",
         tags: ["리그오브레전드", "leagueoflegends"],
       },
       filePath: {
-        image: process.env.IMAGE_FILE_PATH!,
+        images: [process.env.IMAGE_FILE_PATH!, process.env.IMAGE_FILE_PATH!],
       },
       config: {
         visibility: "schedule",
