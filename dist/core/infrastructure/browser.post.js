@@ -19,6 +19,7 @@ class BrowserPost {
             }
             const { filePath, meta, config } = dto;
             yield this.browserInstance.goUploadPage();
+            yield this.delay(2000);
             yield this.setConfig(config);
             yield this.delay(2000);
             yield this.setMeta(meta);

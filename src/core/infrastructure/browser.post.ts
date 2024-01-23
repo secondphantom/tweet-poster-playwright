@@ -15,6 +15,7 @@ export class BrowserPost {
     const { filePath, meta, config } = dto;
 
     await this.browserInstance.goUploadPage();
+    await this.delay(2000);
 
     await this.setConfig(config);
     await this.delay(2000);

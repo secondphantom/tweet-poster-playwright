@@ -41,7 +41,25 @@ describe("Post Service", () => {
     await postService.post(dto);
   }, 180000);
 
-  test.only("Upload Images", async () => {
+  test.only("Upload Video", async () => {
+    const dto: PostDto = {
+      meta: {
+        title: "test",
+        tags: ["리그오브레전드", "leagueoflegends"],
+      },
+      filePath: {
+        video: process.env.VIDEO_FILE_PATH_NETWORK_HDD!,
+      },
+      config: {
+        visibility: "schedule",
+        scheduleDate: new Date("2024-02-22T04:58:44.518Z"),
+      },
+    };
+
+    await postService.post(dto);
+  }, 180000);
+
+  test("Upload Images", async () => {
     const dto: PostDto = {
       meta: {
         title: "test",
