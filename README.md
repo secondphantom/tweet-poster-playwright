@@ -7,7 +7,7 @@ npm i https://github.com/secondphantom/tweet-poster-playwright
 ```
 
 ## Features
-- [x] without tweeter api
+- [x] without twitter api
 - [x] support headless browser
 - [x] tweet
   - [x] upload video

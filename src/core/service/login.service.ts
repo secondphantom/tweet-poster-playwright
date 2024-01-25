@@ -20,7 +20,7 @@ export class LoginService {
 
   private updateAuth = async () => {
     await this.browserInstance.goLoginPage();
-    await this.rl.question(`Login tweeter\nDid you login? (Enter)\n`);
+    await this.rl.question(`Login twitter\nDid you login? (Enter)\n`);
     await this.browserInstance.saveAuthFile();
   };
 }

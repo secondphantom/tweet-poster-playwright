@@ -52,7 +52,7 @@ class LoginService {
         });
         this.updateAuth = () => __awaiter(this, void 0, void 0, function* () {
             yield this.browserInstance.goLoginPage();
-            yield this.rl.question(`Login tweeter\nDid you login? (Enter)\n`);
+            yield this.rl.question(`Login twitter\nDid you login? (Enter)\n`);
             yield this.browserInstance.saveAuthFile();
         });
     }
