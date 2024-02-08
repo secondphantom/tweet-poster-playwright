@@ -11,21 +11,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BrowserPost = void 0;
 class BrowserPost {
-    constructor(browserInstance) {
+    constructor(browserInstance, logger) {
         this.browserInstance = browserInstance;
+        this.logger = logger;
         this.run = (dto) => __awaiter(this, void 0, void 0, function* () {
             if (!this.page) {
                 this.page = this.browserInstance.getPage();
             }
             const { filePath, meta, config } = dto;
+            this.logger.debug("going upload page");
             yield this.browserInstance.goUploadPage();
             yield this.delay(2000);
+            this.logger.debug("setting config");
             yield this.setConfig(config);
             yield this.delay(2000);
+            this.logger.debug("setting meta");
             yield this.setMeta(meta);
             yield this.delay(2000);
+            this.logger.debug("uploading file");
             yield this.uploadFile(filePath);
             yield this.delay(2000);
+            this.logger.debug("posting");
             yield this.post();
         });
         this.uploadFile = (filePath) => __awaiter(this, void 0, void 0, function* () {
@@ -138,7 +144,7 @@ class BrowserPost {
             let isUploading = yield this.getIsUploading();
             while (isUploading) {
                 isUploading = yield this.getIsUploading();
-                yield this.delay(500);
+                yield this.delay(1000);
             }
         });
         this.getIsUploading = () => __awaiter(this, void 0, void 0, function* () {

@@ -109,7 +109,7 @@ export class BrowserInstance {
         .then(JSON.parse);
       return auth as ReturnType<BrowserContext["storageState"]>;
     } catch (error) {
-      throw new Error(`[ERROR] Cannot Get AuthFile`);
+      throw new Error(`Cannot Get AuthFile`);
     }
   };
 
@@ -120,7 +120,7 @@ export class BrowserInstance {
 
     const pageUrl = page.url();
     if (pageUrl !== url) {
-      throw new Error(`[ERROR] BrowserInstance: Login required`);
+      throw new Error(`Login required`);
     }
     await page.close();
   };
@@ -133,12 +133,12 @@ export class BrowserInstance {
 
   private browserLaunchCheck = () => {
     if (!this.browserContext) {
-      throw new Error(`[ERROR] Browser Instance: Browser Not Launched`);
+      throw new Error(`Browser Not Launched`);
     }
   };
 
   goto = async (url: string) => {
-    if (!this.page) throw new Error(`[ERROR] Page Not Launched`);
+    if (!this.page) throw new Error(`Page Not Launched`);
     await this.page.goto(url, { waitUntil: "commit" });
   };
 

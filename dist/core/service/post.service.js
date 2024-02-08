@@ -12,12 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostService = void 0;
 const browser_post_1 = require("../infrastructure/browser.post");
 class PostService {
-    constructor(browserInstance) {
+    constructor(browserInstance, logger) {
         this.browserInstance = browserInstance;
+        this.logger = logger;
         this.post = (dto) => __awaiter(this, void 0, void 0, function* () {
+            this.logger.verbose(`Posting start`);
             yield this.browserPost.run(dto);
+            this.logger.verbose("Posting end");
         });
-        this.browserPost = new browser_post_1.BrowserPost(this.browserInstance);
+        this.browserPost = new browser_post_1.BrowserPost(this.browserInstance, this.logger);
     }
 }
 exports.PostService = PostService;

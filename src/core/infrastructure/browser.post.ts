@@ -1,10 +1,14 @@
 import { FrameLocator, Page } from "playwright";
 import { BrowserInstance } from "./browser.instance";
 import { PostDto } from "../service/post.service";
+import { Logger } from "../../logger";
 
 export class BrowserPost {
   private page: Page;
-  constructor(private browserInstance: BrowserInstance) {
+  constructor(
+    private browserInstance: BrowserInstance,
+    private logger: Logger
+  ) {
     this.page = this.browserInstance.getPage();
   }
 
@@ -14,18 +18,23 @@ export class BrowserPost {
     }
     const { filePath, meta, config } = dto;
 
+    this.logger.debug("going upload page");
     await this.browserInstance.goUploadPage();
     await this.delay(2000);
 
+    this.logger.debug("setting config");
     await this.setConfig(config);
     await this.delay(2000);
 
+    this.logger.debug("setting meta");
     await this.setMeta(meta);
     await this.delay(2000);
 
+    this.logger.debug("uploading file");
     await this.uploadFile(filePath);
     await this.delay(2000);
 
+    this.logger.debug("posting");
     await this.post();
   };
 
@@ -150,7 +159,7 @@ export class BrowserPost {
     let isUploading = await this.getIsUploading();
     while (isUploading) {
       isUploading = await this.getIsUploading();
-      await this.delay(500);
+      await this.delay(1000);
     }
   };
 

@@ -1,3 +1,4 @@
+import { Logger } from "../../logger";
 import { BrowserInstance } from "../infrastructure/browser.instance";
 export type PostDto = {
     meta: {
@@ -15,7 +16,8 @@ export type PostDto = {
 };
 export declare class PostService {
     private browserInstance;
+    private logger;
     private browserPost;
-    constructor(browserInstance: BrowserInstance);
+    constructor(browserInstance: BrowserInstance, logger: Logger);
     post: (dto: PostDto) => Promise<void>;
 }

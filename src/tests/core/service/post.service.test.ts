@@ -2,21 +2,23 @@ import { BrowserInstance } from "../../../core/infrastructure/browser.instance";
 import { PostDto, PostService } from "../../../core/service/post.service";
 import { LoginService } from "../../../core/service/login.service";
 import dotenv from "dotenv";
+import { Logger } from "../../../logger";
 dotenv.config();
 
 describe("Post Service", () => {
   let browserInstance: BrowserInstance;
   let loginService: LoginService;
   let postService: PostService;
+  let logger = new Logger("debug");
 
   beforeAll(async () => {
     browserInstance = new BrowserInstance({
       authFilePath: process.env.AUTH_FILE_PATH!,
       launchOptions: { headless: false },
     });
-    loginService = new LoginService(browserInstance);
+    loginService = new LoginService(browserInstance, logger);
     await loginService.login();
-    postService = new PostService(browserInstance);
+    postService = new PostService(browserInstance, logger);
   }, 30000);
 
   afterAll(async () => {

@@ -78,7 +78,7 @@ class BrowserInstance {
                 return auth;
             }
             catch (error) {
-                throw new Error(`[ERROR] Cannot Get AuthFile`);
+                throw new Error(`Cannot Get AuthFile`);
             }
         });
         this.checkValidLogin = () => __awaiter(this, void 0, void 0, function* () {
@@ -87,7 +87,7 @@ class BrowserInstance {
             yield this.internalGoto(url, page);
             const pageUrl = page.url();
             if (pageUrl !== url) {
-                throw new Error(`[ERROR] BrowserInstance: Login required`);
+                throw new Error(`Login required`);
             }
             yield page.close();
         });
@@ -98,12 +98,12 @@ class BrowserInstance {
         });
         this.browserLaunchCheck = () => {
             if (!this.browserContext) {
-                throw new Error(`[ERROR] Browser Instance: Browser Not Launched`);
+                throw new Error(`Browser Not Launched`);
             }
         };
         this.goto = (url) => __awaiter(this, void 0, void 0, function* () {
             if (!this.page)
-                throw new Error(`[ERROR] Page Not Launched`);
+                throw new Error(`Page Not Launched`);
             yield this.page.goto(url, { waitUntil: "commit" });
         });
         this.internalGoto = (url, page) => __awaiter(this, void 0, void 0, function* () {

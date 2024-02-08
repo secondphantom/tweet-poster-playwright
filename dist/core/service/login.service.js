@@ -36,15 +36,17 @@ exports.LoginService = void 0;
 const process_1 = require("process");
 const readline = __importStar(require("readline/promises"));
 class LoginService {
-    constructor(browserInstance) {
+    constructor(browserInstance, logger) {
         this.browserInstance = browserInstance;
+        this.logger = logger;
         this.rl = readline.createInterface({ input: process_1.stdin, output: process_1.stdout });
         this.login = () => __awaiter(this, void 0, void 0, function* () {
             try {
+                this.logger.log("try login");
                 yield this.browserInstance.launch();
             }
             catch (error) {
-                console.log(error.message);
+                this.logger.error(error.message);
                 yield this.updateAuth();
                 yield this.browserInstance.launch();
             }
