@@ -157,6 +157,7 @@ export class BrowserPost {
 
   private waitUploadComplete = async () => {
     let isUploading = await this.getIsUploading();
+    this.logger.debug(`wait until upload complete`);
     while (isUploading) {
       isUploading = await this.getIsUploading();
       await this.delay(1000);
@@ -164,9 +165,10 @@ export class BrowserPost {
   };
 
   private getIsUploading = async () => {
-    const statusText = await (
-      await this.page.$('[aria-live="polite"]')
-    )?.innerText();
+    const statusEle = await this.page
+      .$$('[aria-live="polite"]')
+      .then((v) => v[1]);
+    const statusText = await statusEle?.innerText();
     if (!statusText) return true;
     if (!statusText.toLowerCase().includes("uploaded")) {
       return true;

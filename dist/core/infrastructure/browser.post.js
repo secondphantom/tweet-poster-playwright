@@ -142,14 +142,17 @@ class BrowserPost {
         });
         this.waitUploadComplete = () => __awaiter(this, void 0, void 0, function* () {
             let isUploading = yield this.getIsUploading();
+            this.logger.debug(`wait until upload complete`);
             while (isUploading) {
                 isUploading = yield this.getIsUploading();
                 yield this.delay(1000);
             }
         });
         this.getIsUploading = () => __awaiter(this, void 0, void 0, function* () {
-            var _a;
-            const statusText = yield ((_a = (yield this.page.$('[aria-live="polite"]'))) === null || _a === void 0 ? void 0 : _a.innerText());
+            const statusEle = yield this.page
+                .$$('[aria-live="polite"]')
+                .then((v) => v[1]);
+            const statusText = yield (statusEle === null || statusEle === void 0 ? void 0 : statusEle.innerText());
             if (!statusText)
                 return true;
             if (!statusText.toLowerCase().includes("uploaded")) {

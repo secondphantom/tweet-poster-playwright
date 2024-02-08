@@ -25,7 +25,7 @@ describe("Post Service", () => {
     await browserInstance.closeBrowser();
   });
 
-  test.skip("Upload Video", async () => {
+  test.only("Upload Video", async () => {
     const dto: PostDto = {
       meta: {
         title: "test",
@@ -43,7 +43,7 @@ describe("Post Service", () => {
     await postService.post(dto);
   }, 180000);
 
-  test.only("Upload Video", async () => {
+  test.skip("Upload Video", async () => {
     const dto: PostDto = {
       meta: {
         title: "test",
@@ -54,7 +54,7 @@ describe("Post Service", () => {
       },
       config: {
         visibility: "schedule",
-        scheduleDate: new Date("2024-02-22T04:58:44.518Z"),
+        scheduleDate: new Date("2024-02-29T04:58:44.518Z"),
       },
     };
 
